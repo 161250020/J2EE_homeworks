@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="ejbModule"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-9.0.4">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/WildFly 14.0 Runtime">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.ejb"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="F:/学习资料/大3/第2学期/J2EE与中间件/作业/小作业们/作业6/hibernate核心jar/hibernate-core-5.2.2.Final.jar"/>
+	<classpathentry kind="lib" path="F:/学习资料/大3/第2学期/J2EE与中间件/作业/小作业们/作业5/wildfly-14.0.1.Final/bin/client/jboss-client.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
