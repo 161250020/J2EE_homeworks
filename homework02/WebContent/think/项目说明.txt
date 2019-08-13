@@ -1,0 +1,74 @@
+//注意点：
+1：之前有一次多点了几个页面，然后竟然没办法转到那个页面了，一开始我以为是session（是否是true还是false）的问题，
+但是后来我觉得数据库的connection等需要关闭，果然，就是数据库的问题，所以下次数据库使用完之后，相应的内容需要关闭，
+不然页面就没办法响应（connection等是有数量限制的）；
+（ps：老师给的示例当中数据库等内容忘记关闭了！）
+
+servlet结构：
+//思考：
+session：事物；
+cookie：存储内容；
+req和session的setAttribute/getAttribute等很有用；
+
+//包含的内容：
+cookie:
+lastUsername：上一次输入的登录的username；
+sumMoney：用户需要支付的金额；
+preferencialstrategies_id：订单优惠类型的ID；
+
+session:
+lastUsername：上一次输入的登录的username；
+commodities：数据库当中的商品信息；
+comsNum：数据库当中各个商品选择的数量；
+
+request：
+logout：submit的登出；value=退出登录；
+
+response：
+
+
+//页面结构：
+/login:
+	/loginIndex（没有自己的页面，仅仅用作注册页面结果的转到）:
+		/loginErrPass:
+		/loginErrNoUsername:
+		/login:
+		/chooseCommodities:
+			/chooseCommodities:
+				/noMoreThanStored（选择的商品的数量不可以超过库存的数量，选择的商品数量必须为数字）:
+					/错误页面1（如果选择的商品的数量超过库存的数量）:
+					/错误页面2（如果选择的商品的数量不是数字）:
+					/支付页面（此处有选择优惠的功能）:
+						/payIndex（用户的余额是否足够支付，若够则减去商品，减去金额）：
+							/paySuccess:
+							/payErr:
+
+//商品名称：英文命名，为primary key；
+//用户名称：英文命名，为primary key；
+//可能需要考虑cookie被关闭的情况
+
+//数据库设计：
+orders，orderuser，preferencialstrategies是涉及到订单的数据库，后续可以实现查看订单的功能；
+
+//新点：
+1：可以退出，退出的时候跳转到的登录界面的用户名的输入框包含上一次输入的用户名；
+2：数据库的订单信息已存储，有利于后续订单查看功能的实现；
+3：添加购买的商品不可以超过库存的功能；
+4：优化界面；
+5：实现加分项：分页显示；
+
+//新添的方向：
+1：老师给的加分项---商品分类；
+2：新添cookie禁用的时候的选项；
+2：在loginIndex页面当中session存在时候的改变有很多方向，考虑到了修改数据库中数值之后的登录的问题；
+	//步骤方向：
+			//验证已登录的用户，其用户名，密码是否正确
+			//获取cookie值
+			//获取数据库中值
+			//返回结果：
+			//该用户存在（用户名，密码正确）
+			//该用户已修改密码（用户名存在，密码不正确）
+			//该用户已注销（用户名不存在）
+2：密码存储的时候使用哈希函数，不使用明文存储的方式；
+4：新添注册功能，最好是有对注册的用户名和密码的判断：必须6位数以上，有大小写数字组成，不可以出现奇怪的符号（将这些符号都列出来，以免自己都会忘记了）等等；
+
