@@ -1,0 +1,7 @@
+数据源的配置：
+jndi-name：java:/MySQLDS；
+
+//注意hibernate基于注解的主键设置要有，否则就会出错
+---一般项目里面的MySQL的table的设置必须要有主键，这样子才可以使用“hibernate基于注解的主键设置”；
+//使用hibernate的find查找到的返回的内容是一个对象（models.*），而不是username等等string等类型的数据；
+所以最后在返回数值的时候，记得将返回的内容的类型转换一下！！！
