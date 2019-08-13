@@ -1,0 +1,15 @@
+//需要使用Tomcat运行，使用wildfly运行会因为jdbc驱动版本太高而无法运行；
+
+待优化：
+//关于映射的问题：---后续可以修改table的映射（注解版），同时或许需要修改部分代码；
+//其中映射关系如下：
+表orders：
+	Id(表preferencialstrategies的Id), 
+	commodityName(表commodities的name), 
+	orderId(表orderuser的orderId);
+
+表preferencialstrategies:
+	preferencialstrategyId(表preferencialstrategy的id);
+	
+表orderuser:
+	username(表user的username);

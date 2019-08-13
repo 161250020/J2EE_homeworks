@@ -1,0 +1,12 @@
+/TEST/
+/action/
+/dao/
+/factory/
+/filters/
+/hibernate.cfg.xml
+/listeners/
+/models/
+/service/
+/servlets/
+/tags/
+/utils/
