@@ -1,0 +1,51 @@
+//过滤器：解决表单当中的中文请求后乱码的问题：
+---需要修改成为的编码格式：utf-8；
+---一开始的时候我是将编码试了一遍，然后看当前是哪一种编码，之后将当前的编码修改为utf-8编码格式，
+      就像是：（https://blog.csdn.net/sotong006/article/details/78713979）一样，
+      后来发现似乎这样反而乱码了，然后仅仅设置request.setCharacterEncoding("utf-8");这样反而不乱码；
+---修改了request和response的乱码；
+---编码转换之后不乱码的数值使用：System.out.println("getParameter: "+value);打印在控制台上面了；
+
+//统计在线人数（已在各个页面上面显示出来）：
+1：txt文件记录在线人数：
+---visitorIn.txt：游客人数；userIn.txt：已登录人数；
+---总人数：游客人数+已登录人数；
+---总人数，已登录人数，游客人数---显示在每个页面的下方，当做一个标注来显示；
+//思考：
+1：参考https://blog.csdn.net/lvzhiyuan/article/details/4664624后思考：
+---ServletContext开启的时候：counters.txt文件当中的两个数值初始化为0；
+---session新建的时候判断：是用户（已登录的）还是游客（以游客身份登录）；
+   session关闭的时候判断：是用户还是游客退出；
+     注意：最好实现：当关闭浏览器的时候清除session；
+//数值：
+1：ServletContext：
+---Attribute：
+   ---countVisitors：统计在线的游客人数；存储在visitorIn.txt文件当中；
+                                     当游客点击login页面的“游客登录”的时候，跳转到/visitorIndex，countVisitors+1；//
+                                     当游客点击visitorLogin页面的“去登录”的时候，countVisitors-1；//
+   ---countUsers：统计在线的用户人数；存储在userIn.txt文件当中；
+                                当游客点击login页面的“登录”的时候，登录成功，跳转到chooseCommodities页面，则countUsers+1；//
+                                当游客点击任意页面的“退出登录”的时候，countUsers-1；
+   ---allOnlineUsers：在线总人数；
+                                       为countVisitors+countUsers；
+PS：
+1：这三个数值在每一页都显示；
+2：每次重启一下Tomcat，所有的在线人数都会清零；
+
+//已优化：
+1：刷新当前页面导致人数变动的错误---已解决：
+eg：避免游客登录之后，刷新当前展示的页面带来的游客数量虚假增长，
+以及游客“去登陆”之后，刷新当前登录的页面带来的游客数量虚假减少；（已登录用户类似）
+2：商品的查看的界面添加一下登陆功能，如果当前用户没有登录的话用户就显示是游客；
+3：//考虑一下这些页面是游客可以浏览的：商品的查看的页面；
+---一开始的时候就先确定一下身份---登录/以访客帐号登录（记得清空cookie的用户名---moodle上面就清空了+登录按钮---转到登录界面）
+
+//待优化：
+1：用户直接关闭浏览器，没有退出登录/去登陆，服务端session没有清除，这个人数如何计算？
+2：实现：在浏览器关闭的时候，session关闭，且当前的游客/用户，人数-1；
+---（仅支持js监听浏览器关闭的浏览器可以，eg:IE）可以使用js监听浏览器是否被关闭，如果关闭了，就向一个url发送请求来处理人数问题，然后再将这个session清除；
+PS：但是关闭了浏览器也不一定代表用户退出，所以这里要看你如何理解了；
+
+
+//2019-01-07：
+完成关于HttpServletResponseWrapper的设定的问题---理解HttpServletResponseWrapper如何使用，以及部分修改自己原本的作业；
